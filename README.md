@@ -37,6 +37,11 @@ if($false -eq (Test-Path .\hadoopInstall\df\i1\spark-3.5.6-bin-hadoop3.tgz)) {
     curl https://dlcdn.apache.org/spark/spark-3.5.6/spark-3.5.6-bin-hadoop3.tgz -o ./hadoopInstall/df/i1/spark-3.5.6-bin-hadoop3.tgz
 }
 
+# 2-3. Kafka 패키지 다운로드
+if($false -eq (Test-Path .\hadoopInstall\df\i1\kafka_2.12-3.9.0.tgz)) {
+    curl https://dlcdn.apache.org/kafka/3.9.0/kafka_2.12-3.9.0.tgz -o ./hadoopInstall/df/i1/kafka_2.12-3.9.0.tgz
+}
+
 # 3-1. hnet 컨테이너 네트워크 생성
 docker network create hnet
 
@@ -65,4 +70,8 @@ ansible-playbook --flush-cache -i /df/ansible-hadoop/hosts /df/ansible-hadoop/ha
 # spark-3.5.6-bin-hadoop3.tgz 파일을 미리 df 폴더에 위치
 cd ~/bigdataPersonalLab/hadoopInstall
 ansible-playbook --flush-cache -i /df/ansible-spark/hosts /df/ansible-spark/spark_install.yml -e ansible_python_interpreter=/usr/bin/python3.12
+
+# 4. Kafka 설치 수행
+# kafka_2.12-3.9.0.tgz 파일을 미리 df 폴더에 위치
+ansible-playbook -i /df/ansible-kafka/hosts /df/ansible-kafka/kafka_install.yml -e ansible_python_interpreter=/usr/bin/python3.12
 ```
