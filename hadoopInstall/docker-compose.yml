@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: i1s3.dockerfile
-    image: nowage/i1s3:oraclelinux9
+    image: oraclelinux:9
 
   i1:
     build:

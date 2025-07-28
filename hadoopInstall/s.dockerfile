@@ -1,4 +1,4 @@
-FROM nowage/i1s3:oraclelinux9
+FROM oraclelinux:9
 
 # 추가 설치 스크립트 복사 및 실행
 COPY install-s.sh /root/install-s.sh
