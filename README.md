@@ -18,12 +18,21 @@
 
 
 ## 빠른시작
-### 1. 프로젝트 Clone 및 설정
+### 1. 프로젝트 Clone 및 컨테이너 생성
 ```powershell
 # 작업 디렉터리 설정
 cd ~
 
-# 프로젝트 클론
+# 1. 프로젝트 클론
 git clone https://github.com/QHIANA7/bigdataPersonalLab.git
-cd bigdataPersonalLab
+cd ~\bigdataPersonalLab
+
+# 2-1. hnet 컨테이너 네트워크 생성
+docker network create hnet
+
+# 2-2. Docker Compose 수행
+cd ~\bigdataPersonalLab\hadoopInstall
+docker-compose down --volumes
+docker-compose up --build -d
+
 ```
