@@ -18,7 +18,7 @@
 
 
 ## 빠른시작
-### 1. 프로젝트 Clone 및 컨테이너 생성
+### 1. 컨테이너 생성을 위한 프로젝트 Clone 및 구성
 ```powershell
 # 작업 디렉터리 설정
 cd ~
@@ -50,4 +50,9 @@ cd ~/bigdataPersonalLab
 # hadoop-3.3.6.tar.gz 파일을 미리 df 폴더에 위치
 cd ~/bigdataPersonalLab/hadoopInstall
 ansible-playbook --flush-cache -i /df/ansible-hadoop/hosts /df/ansible-hadoop/hadoop_install.yml
+
+# 3. Spark 설치 수행
+# spark-3.4.4-bin-hadoop3.tgz 파일을 미리 df 폴더에 위치
+cd ~/bigdataPersonalLab/hadoopInstall
+ansible-playbook --flush-cache -i /df/ansible-spark/hosts /df/ansible-spark/spark_install.yml -e ansible_python_interpreter=/usr/bin/python3.12
 ```
