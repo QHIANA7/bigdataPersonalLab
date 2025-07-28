@@ -73,5 +73,6 @@ ansible-playbook --flush-cache -i /df/ansible-spark/hosts /df/ansible-spark/spar
 
 # 4. Kafka 설치 수행
 # kafka_2.12-3.9.0.tgz 파일을 미리 df 폴더에 위치
+cd ~/bigdataPersonalLab/hadoopInstall
 ansible-playbook -i /df/ansible-kafka/hosts /df/ansible-kafka/kafka_install.yml -e ansible_python_interpreter=/usr/bin/python3.12
 ```
