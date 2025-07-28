@@ -62,7 +62,6 @@
 - name: Configure Hadoop workers file
   copy:
     content: |
-      s1
       s2
       s3
     dest: "{{ hadoop_home }}/etc/hadoop/workers"

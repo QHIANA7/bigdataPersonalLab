@@ -7,10 +7,8 @@ s3 ansible_user=root
 s1
 
 [datanodes]
-s1
 s2
 s3
-
 
 [all:vars]
 ansible_python_interpreter=/usr/bin/python3.12
