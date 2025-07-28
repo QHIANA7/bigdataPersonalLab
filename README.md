@@ -27,10 +27,20 @@ cd ~
 git clone https://github.com/QHIANA7/bigdataPersonalLab.git
 cd ~\bigdataPersonalLab
 
-# 2-1. hnet 컨테이너 네트워크 생성
+# 2-1. Hadoop 패키지 다운로드
+if($false -eq (Test-Path .\hadoopInstall\df\i1\hadoop-3.3.6.tar.gz)) {
+    curl https://downloads.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz -o ./hadoopInstall/df/i1/hadoop-3.3.6.tar.gz
+}
+
+# 2-2. Spark 패키지 다운로드
+if($false -eq (Test-Path .\hadoopInstall\df\i1\spark-3.5.6-bin-hadoop3.tgz)) {
+    curl https://dlcdn.apache.org/spark/spark-3.5.6/spark-3.5.6-bin-hadoop3.tgz -o ./hadoopInstall/df/i1/spark-3.5.6-bin-hadoop3.tgz
+}
+
+# 3-1. hnet 컨테이너 네트워크 생성
 docker network create hnet
 
-# 2-2. Docker Compose 수행
+# 3-2. Docker Compose 수행
 cd ~\bigdataPersonalLab\hadoopInstall
 docker-compose down --volumes
 docker-compose up --build -d
@@ -52,7 +62,7 @@ cd ~/bigdataPersonalLab/hadoopInstall
 ansible-playbook --flush-cache -i /df/ansible-hadoop/hosts /df/ansible-hadoop/hadoop_install.yml
 
 # 3. Spark 설치 수행
-# spark-3.4.4-bin-hadoop3.tgz 파일을 미리 df 폴더에 위치
+# spark-3.5.6-bin-hadoop3.tgz 파일을 미리 df 폴더에 위치
 cd ~/bigdataPersonalLab/hadoopInstall
 ansible-playbook --flush-cache -i /df/ansible-spark/hosts /df/ansible-spark/spark_install.yml -e ansible_python_interpreter=/usr/bin/python3.12
 ```

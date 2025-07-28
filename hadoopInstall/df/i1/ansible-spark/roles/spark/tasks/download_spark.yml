@@ -1,7 +1,7 @@
 ---
 - name: Check if Spark file exists
   stat:
-    path: /df/spark-3.4.4-bin-hadoop3.tgz  # 미리 다운로드한 파일 경로
+    path: /df/spark-3.5.6-bin-hadoop3.tgz  # 미리 다운로드한 파일 경로
   register: spark_file
 
 # - name: Download Spark if file does not exist
@@ -17,12 +17,12 @@
 
 - name: Copy Spark to target machine
   copy:
-    src: /df/spark-3.4.4-bin-hadoop3.tgz
+    src: /df/spark-3.5.6-bin-hadoop3.tgz
     dest: /opt/spark.tar.gz
 
 - name: Remove existing Spark directory if it exists
   file:
-    path: /opt/spark-3.4.4-bin-hadoop3
+    path: /opt/spark-3.5.6-bin-hadoop3
     state: absent
 
 - name: Remove existing Spark link if it exists
@@ -38,6 +38,6 @@
 
 - name: Create Spark symbolic link
   file:
-    src: /usr/local/spark-3.4.4-bin-hadoop3
+    src: /usr/local/spark-3.5.6-bin-hadoop3
     dest: /usr/local/spark
     state: link
