@@ -4,7 +4,6 @@ s1
 s2
 s3
 [consumer]
-s1 ansible_connection=ssh ansible_user=root
 s2 ansible_connection=ssh ansible_user=root
 s3 ansible_connection=ssh ansible_user=root
 
