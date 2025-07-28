@@ -31,6 +31,5 @@
   copy:
     dest: /usr/local/spark/conf/slaves
     content: |
-      s1
       s2
       s3
