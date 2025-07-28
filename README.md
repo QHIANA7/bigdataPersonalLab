@@ -34,5 +34,20 @@ docker network create hnet
 cd ~\bigdataPersonalLab\hadoopInstall
 docker-compose down --volumes
 docker-compose up --build -d
+docker exec -it i1 bash
+```
 
+### 2. 클러스터 구성을 위한 프로젝트 Clone 및 구성
+```bash
+# 작업 디렉터리 설정
+cd ~
+
+# 1. 프로젝트 클론
+git clone https://github.com/QHIANA7/bigdataPersonalLab.git
+cd ~/bigdataPersonalLab
+
+# 2. Hadoop 설치 수행
+# hadoop-3.3.6.tar.gz 파일을 미리 df 폴더에 위치
+cd ~/bigdataPersonalLab/hadoopInstall
+ansible-playbook --flush-cache -i /df/ansible-hadoop/hosts /df/ansible-hadoop/hadoop_install.yml
 ```
