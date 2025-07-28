@@ -31,12 +31,12 @@ ansible namenodes -i /df/ansible-hadoop/hosts -m shell -a "nohup mapred --daemon
 # Safe Mode off 
 ansible namenodes -i /df/ansible-hadoop/hosts -m shell -a "hdfs dfsadmin -safemode leave &" -u root --become
 # Kafka Zookeeper 시작
-ssh s1 tmux new-session -d -s zookeeper 'zookeeper-server-start.sh /opt/kafka/config/zookeeper.properties'
+ssh s1 tmux new-session -d -s zookeeper "zookeeper-server-start.sh /opt/kafka/config/zookeeper.properties"
 sleep 10
 # Kafka 시작
-ssh s1 tmux new-session -d -s kafka 'kafka-server-start.sh /opt/kafka/config/server.properties'  
-ssh s2 tmux new-session -d -s kafka 'kafka-server-start.sh /opt/kafka/config/server.properties'  
-ssh s3 tmux new-session -d -s kafka 'kafka-server-start.sh /opt/kafka/config/server.properties'  
+ssh s1 tmux new-session -d -s kafka "kafka-server-start.sh /opt/kafka/config/server.properties"
+ssh s2 tmux new-session -d -s kafka "kafka-server-start.sh /opt/kafka/config/server.properties"
+ssh s3 tmux new-session -d -s kafka "kafka-server-start.sh /opt/kafka/config/server.properties"
 '
 
 # Stop all node
