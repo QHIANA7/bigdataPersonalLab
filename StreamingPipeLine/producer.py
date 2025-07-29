@@ -9,8 +9,8 @@ from confluent_kafka import Producer
 BROKER = "s1:9092,s2:9092,s3:9092"
 TOPIC = "topic1"
 API_BASE_URL = "http://finfra.iptime.org:9872"
-DEVICE_IDS = list(range(1, 3))  # 1~2번 장비
-FETCH_INTERVAL = 10
+DEVICE_IDS = list(range(1, 6))  # 1~5번 장비
+FETCH_INTERVAL = 5
 MAX_CONCURRENCY = 2  # 동시에 요청할 최대 장비 수
 
 # 로깅
