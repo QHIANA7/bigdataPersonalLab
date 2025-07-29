@@ -58,7 +58,7 @@ class AsyncFMSConsumer:
             return
 
         timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
-        filename = f"sensor-data-{timestamp_str}.json"
+        filename = f"sensor-data-{timestamp_str}.jsonl"
         hdfs_path = os.path.join(HDFS_DIR, filename)
 
         try:
