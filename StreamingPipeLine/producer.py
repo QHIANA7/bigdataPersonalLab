@@ -1,8 +1,8 @@
 import json
-import requests
+import aiohttp
 import asyncio
 import logging
-import datetime
+from datetime import datetime
 from confluent_kafka import Producer
 
 # 설정
