@@ -121,7 +121,7 @@ class AsyncFMSConsumer:
                 if elapsed_time <= 0:
                     self.write_buffer_to_hdfs()
 
-                await asyncio.sleep(1)
+                await asyncio.sleep(0.1)
 
         except KeyboardInterrupt:
             logger.info("사용자에 의해 중단됨")
