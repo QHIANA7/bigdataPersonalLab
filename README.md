@@ -16,7 +16,6 @@
 * 분산 저장 : Hadoop HDFS
 * 모니터링 : Prometheus, Grafana
 
-
 ## 빠른시작
 ### 1. 컨테이너 생성을 위한 프로젝트 Clone 및 구성
 ```powershell
