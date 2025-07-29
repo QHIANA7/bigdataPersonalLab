@@ -75,3 +75,22 @@ ansible-playbook --flush-cache -i /df/ansible-spark/hosts /df/ansible-spark/spar
 cd ~/bigdataPersonalLab/hadoopInstall
 ansible-playbook -i /df/ansible-kafka/hosts /df/ansible-kafka/kafka_install.yml -e ansible_python_interpreter=/usr/bin/python3.12
 ```
+
+### 3. 실시간 스트리밍 파이프라인 실행
+```bash
+# 작업 디렉터리 설정
+cd ~
+
+# 1. 스크립트 복사
+ssh s1 "mkdir -p pipeline"
+scp ~/bigdataPersonalLab/StreamingPipeLine/producer.py s1:pipeline/producer.py
+scp ~/bigdataPersonalLab/StreamingPipeLine/consumer.py s1:pipeline/consumer.py
+
+# 2. 기존 파이프라인 종료
+ssh s1 tmux kill-session -t producer
+ssh s1 tmux kill-session -t consumer
+
+# 3. 파이프라인 실행
+ssh s1 tmux new-session -d -s producer 'python3 ~/pipeline/producer.py'
+ssh s1 tmux new-session -d -s consumer 'python3 ~/pipeline/consumer.py'
+```
