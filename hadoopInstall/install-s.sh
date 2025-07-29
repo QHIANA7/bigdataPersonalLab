@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# confluent_kafka 파이썬 패키지 설치
+pip install confluent_kafka
+
+# 비동기 Http 라이브러리 파이썬 패키지 설치
+pip install aiohttp
 
 
 # # OpenJDK Development Kit 설치 (javac, jps 포함)
