@@ -57,11 +57,25 @@ class AsyncFMSConsumer:
         if not self.buffer:
             return
 
+        now = datetime.now()
         timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"sensor-data-{timestamp_str}.jsonl"
-        hdfs_path = os.path.join(HDFS_DIR, filename)
+
+        # 파티션 경로 생성
+        partition_path = os.path.join(
+            HDFS_DIR,
+            f"year={now.year}",
+            f"month={now.month:02d}",
+            f"day={now.day:02d}",
+            f"hour={now.hour:02d}"
+        )
+
+        hdfs_file_path = os.path.join(partition_path, filename)
 
         try:
+            # 파티션 디렉토리 존재 여부 확인 및 생성
+            subprocess.run(["hdfs", "dfs", "-mkdir", "-p", partition_path], check=True)
+
             with tempfile.NamedTemporaryFile('w', delete=False) as tmp:
                 for record in self.buffer:
                     tmp.write(json.dumps(record) + '\n')
@@ -69,13 +83,13 @@ class AsyncFMSConsumer:
 
             # HDFS로 업로드
             subprocess.run(
-                ["hdfs", "dfs", "-put", "-f", tmp_path, hdfs_path],
+                ["hdfs", "dfs", "-put", "-f", tmp_path, hdfs_file_path],
                 check=True,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 text=True
             )
-            logger.info(f"📤 HDFS 저장 완료: {hdfs_path}")
+            logger.info(f"📤 HDFS 저장 완료: {hdfs_file_path}")
         except subprocess.CalledProcessError as e:
             logger.error(f"HDFS 저장 실패: {e.stderr.strip()}")
         finally:
