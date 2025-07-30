@@ -77,7 +77,7 @@ ansible-playbook -i /df/ansible-kafka/hosts /df/ansible-kafka/kafka_install.yml 
 
 # 5. node_exporter 설치 수행
 cd ~/bigdataPersonalLab/hadoopInstall
-ansible-playbook -i /df/ansible-node-exporter/hosts /df/ansible-node_exporter/node_exporter_install.yml
+ansible-playbook -i /df/ansible-node-exporter/hosts /df/ansible-node-exporter/node_exporter_install.yml
 ```
 
 ### 3. 실시간 스트리밍 파이프라인 실행
