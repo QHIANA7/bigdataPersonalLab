@@ -87,6 +87,15 @@ services:
     volumes:
       - ./df/p1/prometheus.yml:/etc/prometheus/prometheus.yml
     tty: true
+  g1:
+    image: grafana/grafana
+    container_name: g1
+    hostname: g1
+    networks:
+      - hnet
+    ports:
+      - "3000:3000"
+    tty: true
 networks:
   hnet:
     external: true
