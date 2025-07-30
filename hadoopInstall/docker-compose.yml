@@ -76,6 +76,17 @@ services:
     tty: true
     depends_on:
       - i1s3
+  prom:
+    image: prom/prometheus
+    container_name: prom
+    hostname: prom
+    networks:
+      - hnet
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./df/prom/prometheus.yml:/etc/prometheus/prometheus.yml
+    tty: true
 networks:
   hnet:
     external: true
