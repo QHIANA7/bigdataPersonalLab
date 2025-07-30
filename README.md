@@ -107,14 +107,18 @@ cd ~
 
 # 1. 스크립트 복사
 ssh s1 "mkdir -p visualization"
-scp ~/bigdataPersonalLab/Visualization/raw_monitoring.py s1:visualization/raw_monitoring.py
+
+scp ~/bigdataPersonalLab/Visualization/fms_monitoring.py s1:visualization/fms_monitoring.py
 scp ~/bigdataPersonalLab/Visualization/err_monitoring.py s1:visualization/err_monitoring.py
+scp ~/bigdataPersonalLab/Visualization/raw_monitoring.py s1:visualization/raw_monitoring.py
 
 # 2. 기존 모니터링 종료
-ssh s1 tmux kill-session -t raw_monitor
+ssh s1 tmux kill-session -t fms_monitor
 ssh s1 tmux kill-session -t err_monitor
+ssh s1 tmux kill-session -t raw_monitor
 
 # 3. 모니터링 시작
-ssh s1 tmux new-session -d -s raw_monitor 'spark-submit ~/visualization/raw_monitoring.py'
+ssh s1 tmux new-session -d -s fms_monitor 'spark-submit ~/visualization/fms_monitoring.py'
 ssh s1 tmux new-session -d -s err_monitor 'spark-submit ~/visualization/err_monitoring.py'
+ssh s1 tmux new-session -d -s raw_monitor 'spark-submit ~/visualization/raw_monitoring.py'
 ```
