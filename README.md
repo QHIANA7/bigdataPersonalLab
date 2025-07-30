@@ -96,6 +96,6 @@ ssh s1 tmux kill-session -t consumer
 
 # 4. 파이프라인 실행
 ssh s1 tmux new-session -d -s producer 'python3 ~/pipeline/producer.py'
-ssh s1 tmux new-session -d -s consumer 'spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.6 --conf spark.metrics.conf=/usr/local/spark/conf/metrics.properties --conf spark.ui.prometheus.enabled=true --conf spark.sql.streaming.metricsEnabled=true streaming.py'
+ssh s1 tmux new-session -d -s consumer 'spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.6 --conf spark.metrics.conf=/usr/local/spark/conf/metrics.properties --conf spark.metrics.namespace=sparkstreaming --conf spark.ui.prometheus.enabled=true --conf spark.sql.streaming.metricsEnabled=true streaming.py'
 
 ```

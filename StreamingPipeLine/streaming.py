@@ -123,9 +123,10 @@ df_dataerr  = df.filter((col("isFail") == False) & (~valid_range))
 df_correct  = df.filter((col("isFail") == False) & valid_range)
 
 # 8. 저장 함수 정의 (HDFS)
-def write_stream(target_df, base_path):
+def write_stream(target_df, base_path, query_name):
     return target_df \
         .writeStream \
+        .queryName(query_name) \
         .format("json") \
         .outputMode("append") \
         .option("path", base_path) \
@@ -136,10 +137,10 @@ def write_stream(target_df, base_path):
 
 # 9. 경로 설정 (HDFS)
 HDFS_BASE = "hdfs://s1:9000"
-query_raw  = write_stream(df, f"{HDFS_BASE}{HDFS_DIR}/raw-data")
-query_fail = write_stream(df_fail,    f"{HDFS_BASE}{HDFS_DIR}/fail")
-query_err  = write_stream(df_dataerr, f"{HDFS_BASE}{HDFS_DIR}/dataerr")
-query_ok   = write_stream(df_correct, f"{HDFS_BASE}{HDFS_DIR}/data")
+query_raw  = write_stream(df, f"{HDFS_BASE}{HDFS_DIR}/raw-data", "raw-data-stream")
+query_fail = write_stream(df_fail,    f"{HDFS_BASE}{HDFS_DIR}/fail", "fail-data-stream")
+query_err  = write_stream(df_dataerr, f"{HDFS_BASE}{HDFS_DIR}/dataerr", "error-data-stream")
+query_ok   = write_stream(df_correct, f"{HDFS_BASE}{HDFS_DIR}/data", "processed-data-stream")
 
 # 10. 실행 유지
 query_raw.awaitTermination()
