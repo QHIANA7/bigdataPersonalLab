@@ -6,6 +6,8 @@ pip install confluent_kafka
 # 비동기 Http 라이브러리 파이썬 패키지 설치
 pip install aiohttp
 
+# 프로메테우스 클라이언트 패키지 설치
+pip install prometheus_client
 
 # # OpenJDK Development Kit 설치 (javac, jps 포함)
 # dnf install -y java-1.8.0-openjdk-devel 

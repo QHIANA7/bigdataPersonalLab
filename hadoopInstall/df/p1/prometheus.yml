@@ -9,3 +9,6 @@ scrape_configs:
     static_configs:
       - targets: ['s1:4040']
     metrics_path: '/metrics/prometheus'
+  - job_name: 'raw'
+    static_configs:
+      - targets: ['s1:9993']
