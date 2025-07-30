@@ -64,6 +64,13 @@ df_json = df_raw.selectExpr("CAST(value AS STRING)") \
     .select(from_json("value", schema).alias("data")) \
     .select("data.*")
 
+# 4-1. null 제거 (전 컬럼 또는 특정 컬럼만)
+df_json = df_json.dropna(subset=[
+    "sensor1", "sensor2", "sensor3",
+    "motor1", "motor2", "motor3",
+    "isFail", "DeviceId", "collected_at"
+])
+
 # 5. timestamp 및 파티션 컬럼 추가
 df = df_json \
     .withColumn("ts", to_timestamp(col("collected_at"))) \
