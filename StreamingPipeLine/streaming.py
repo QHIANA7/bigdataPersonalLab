@@ -3,6 +3,23 @@ import logging
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, from_json, to_timestamp, date_format, year, month, dayofmonth, hour
 from pyspark.sql.types import StructType, StringType, IntegerType, DoubleType, BooleanType
+from pyspark.sql.streaming import StreamingQueryListener
+
+class ThroughputListener(StreamingQueryListener):
+    def onQueryStarted(self, event):
+        print(f"✅ 쿼리 시작됨: {event.id}")
+
+    def onQueryProgress(self, event):
+        progress = event.progress
+        name = progress.name
+        inputRows = progress.numInputRows
+        duration = progress.durationMs["addBatch"]
+        processingRate = progress.inputRowsPerSecond
+
+        logger.info(f"⚡ [Query: {name}] 처리 건수: {inputRows}, 소요 시간: {duration}ms, 처리 속도: {processingRate} rows/sec")
+
+    def onQueryTerminated(self, event):
+        print(f"⛔ 쿼리 종료됨: {event.id}")
 
 # 설정
 BROKER = "s1:9092,s2:9092,s3:9092"
@@ -38,6 +55,9 @@ except Exception as e:
 spark = SparkSession.builder \
     .appName("KafkaSparkStreamingPreprocessing") \
     .getOrCreate()
+
+# 1-1. 처리량 모니터링
+spark.streams.addListener(ThroughputListener())
 
 # 2. Kafka 메시지 스키마 정의
 schema = StructType() \

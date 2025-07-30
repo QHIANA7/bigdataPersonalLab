@@ -16,6 +16,10 @@
     dest: /usr/local/spark
     state: link
 
+- name: Configure metrics.properties
+  template:
+    src: metrics.properties.j2
+    dest: /usr/local/spark/conf/metrics.properties
 
 - name: Create spark-defaults.conf
   copy:
