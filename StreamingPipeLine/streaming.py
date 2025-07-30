@@ -79,6 +79,12 @@ df = df_json \
     .withColumn("day", dayofmonth("ts")) \
     .withColumn("hour", hour("ts"))
 
+# 5-1. 중복 제거
+df = df.dropDuplicates([
+    "DeviceId", "sensor1", "sensor2", "sensor3",
+    "motor1", "motor2", "motor3", "isFail"
+])
+
 # 6. 유효성 조건 정의
 valid_range = (
     (col("sensor1").between(0, 100)) &
