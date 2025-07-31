@@ -82,7 +82,7 @@ groups:
           execErrState: Error
           for: 1m
           annotations:
-            summary: FMS {{ $labels.device_id }} 번 장비 시간당 오류 100건 초과
+            summary: FMS 장비 시간당 오류 100건 초과
           keepFiringFor: 30s
           isPaused: false
           notification_settings:
