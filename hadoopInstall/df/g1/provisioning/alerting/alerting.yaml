@@ -10,23 +10,7 @@ contactPoints:
             bot_token: {Input your bot token}
             room_id: {Input your room id}
             message: |
-                {{ define "webex.default.message" }}
-                {{.CommonAnnotations.SortedPairs.Values | join " "}}
-
-                {{if gt (len .Alerts.Firing) 0}}
-                Alerts Firing:
-                {{range .Alerts.Firing}}
-                {{ .Labels.alertname }} on {{ .Labels.instance }} - {{ .Annotations.summary }}
-                {{end}}
-                {{end}}
-
-                {{if gt (len .Alerts.Resolved) 0}}
-                Alerts Resolved:
-                {{range .Alerts.Resolved}}
-                {{ .Labels.alertname }} on {{ .Labels.instance }} - {{ .Annotations.summary }}
-                {{end}}
-                {{end}}
-                {{ end }}
+                {{ template "webex.default.message" . }}
           disableResolveMessage: false
 
 groups:
