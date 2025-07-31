@@ -9,6 +9,24 @@ contactPoints:
           settings:
             bot_token: {Input your bot token}
             room_id: {Input your room id}
+            message: |
+                {{ define "webex.default.message" }}
+                {{.CommonAnnotations.SortedPairs.Values | join " "}}
+
+                {{if gt (len .Alerts.Firing) 0}}
+                Alerts Firing:
+                {{range .Alerts.Firing}}
+                {{ .Labels.alertname }} on {{ .Labels.instance }} - {{ .Annotations.summary }}
+                {{end}}
+                {{end}}
+
+                {{if gt (len .Alerts.Resolved) 0}}
+                Alerts Resolved:
+                {{range .Alerts.Resolved}}
+                {{ .Labels.alertname }} on {{ .Labels.instance }} - {{ .Annotations.summary }}
+                {{end}}
+                {{end}}
+                {{ end }}
           disableResolveMessage: false
 
 groups:
@@ -63,6 +81,8 @@ groups:
           noDataState: NoData
           execErrState: Error
           for: 1m
+          annotations:
+            summary: FMS {{ $labels.device_id }} 번 장비 시간당 오류 100건 초과
           keepFiringFor: 30s
           isPaused: false
           notification_settings:
@@ -118,6 +138,8 @@ groups:
           noDataState: NoData
           execErrState: Error
           for: 1m
+          annotations:
+            summary: 노드 메모리 사용량 75% 초과
           keepFiringFor: 30s
           isPaused: false
           notification_settings:
