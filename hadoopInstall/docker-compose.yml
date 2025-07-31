@@ -21,6 +21,8 @@ services:
       - s1
       - s2
       - s3
+      - p1
+      - g1
     # command: /root/setup-ssh.sh
 
   s1:
@@ -95,12 +97,15 @@ services:
       - hnet
     ports:
       - "3000:3000"
+    volumes:
+      - ./df/g1/initialize-grafana.sh:/home/grafana/initialize-grafana.sh
     environment:
       - GF_AUTH_DISABLE_LOGIN_FORM=true
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
+    command: ["sh", "/home/grafana/initialize-grafana.sh"]
     tty: true
 networks:
   hnet:
