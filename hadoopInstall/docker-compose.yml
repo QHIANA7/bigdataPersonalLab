@@ -99,6 +99,7 @@ services:
       - "3000:3000"
     volumes:
       - ./df/g1/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./df/g1/provisioning/dashboards:/etc/grafana/provisioning/dashboards
     environment:
       - GF_AUTH_DISABLE_LOGIN_FORM=true
       - GF_AUTH_ANONYMOUS_ENABLED=true
