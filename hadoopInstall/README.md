@@ -89,6 +89,7 @@ ansible-playbook -i /df/ansible-node-exporter/hosts /df/ansible-node-exporter/no
 # HDFS 데몬 시작
 ansible namenodes -i /df/ansible-hadoop/hosts -m shell -a "nohup hdfs --daemon start namenode &" -u root && \
 ansible datanodes -i /df/ansible-hadoop/hosts -m shell -a "nohup hdfs --daemon start datanode &" -u root && \
+
 # YARN 데몬 시작
 ansible namenodes -i /df/ansible-hadoop/hosts -m shell -a "nohup yarn --daemon start resourcemanager &" -u root && \
 ansible datanodes -i /df/ansible-hadoop/hosts -m shell -a "nohup yarn --daemon start nodemanager &" -u root && \
@@ -136,14 +137,14 @@ ssh s3 tmux kill-session -t kafka
 
 # Spark Check
 ## Service Start and Stop
-```
+```bash
 # Spark 재시작
 $SPARK_HOME/sbin/stop-all.sh
 $SPARK_HOME/sbin/start-all.sh
 ```
 
 ## pySpark shell 실행 
-```
+```bash
 # ssh s1
 pyspark
 ```
@@ -153,7 +154,7 @@ pyspark
 from pyspark import SparkContext, SparkConf
 
 # Spark 설정
-conf = SparkConf().setAppName("TaskDistribution").setMaster("spark://s1:7077")
+conf = SparkConf().setAppName("TaskDistribution").setMaster("local[3]")
 sc = SparkContext(conf=conf)
 
 # 데이터 생성
@@ -174,5 +175,4 @@ print(result)
 
 # SparkContext 종료
 sc.stop()
-
 ```
