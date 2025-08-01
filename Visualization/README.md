@@ -36,6 +36,9 @@
 ### [3] 노드 모니터링 대시보드
 * **클러스터 성능 통계** : 클러스터당 CPU, 메모리, 스토리지, 네트워크 성능 표시
 * **대시보드 설정**: [`1860_custom.json`](../hadoopInstall/df/g1/provisioning//dashboards/1860_custom.json)
+* **대시보드 미리보기**
+<img width="2850" height="1635" alt="image" src="https://github.com/user-attachments/assets/48cbe40c-d2ce-4cb4-a664-5751337b6849" />
+
 
 ## 알림 시스템 설계
 ### Webex채널 알림 시스템
