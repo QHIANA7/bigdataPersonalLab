@@ -16,6 +16,14 @@
 * 분산 저장 : Hadoop HDFS
 * 모니터링 : Prometheus, Grafana
 
+## 폴더 구조
+
+| 폴더명                                 | 제목               | 설명                                                  |
+| :------------------------------------- | ------------------ | ----------------------------------------------------- |
+| [hadoopInstall](hadoopInstall/)        | 인프라 구성   | Docker Compose 구성 및 Hadoop, Kafka, Spark 설치 방법 |
+| [StreamingPipeLine](StreamingPipeLin/) | 스트리밍 처리  | Kafka/Spark 스트리밍 처리                         |
+| [Visualization](Visualization/)        | 시각화 및 알림 | 데이터 시각화 및 비정상 데이터 Webex 알림 처리 처리                             |
+
 ## 빠른시작
 ### 1. 컨테이너 생성을 위한 프로젝트 Clone 및 구성
 ```powershell
