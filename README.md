@@ -47,7 +47,7 @@ docker network create hnet
 # 3-2. Docker Compose 수행
 cd ~\bigdataPersonalLab\hadoopInstall
 docker compose down --volumes
-docker compose build i1i3
+docker compose build i1s3
 docker compose up --build -d
 docker exec -it i1 bash
 ```
