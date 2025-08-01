@@ -16,7 +16,7 @@ fi
 rm -f ~/.ssh/known_hosts
 
 # 대상 호스트 확인 및 SSH 연결 테스트
-for host in s1 s2 s3 g1; do
+for host in s1 s2 s3; do
   echo "Waiting for SSH on $host..."
   while ! nc -z $host 22; do
     sleep 1
@@ -30,13 +30,10 @@ for host in s1 s2 s3; do
   sshpass -p "password" ssh-copy-id -o StrictHostKeyChecking=no -i /root/.ssh/id_rsa.pub root@${host}
 done
 
-sshpass -p "password" ssh-copy-id -o StrictHostKeyChecking=no -i /grafana/.ssh/id_rsa.pub grafana@g1
-
 # ssh s1 -C 'ssh-keygen -t rsa -f ~/.ssh/id_rsa -q -N ""'
 ssh s1 -C 'sshpass -p "password" ssh-copy-id -o StrictHostKeyChecking=no -i /root/.ssh/id_rsa.pub root@s1'
 ssh s1 -C 'sshpass -p "password" ssh-copy-id -o StrictHostKeyChecking=no -i /root/.ssh/id_rsa.pub root@s2'
 ssh s1 -C 'sshpass -p "password" ssh-copy-id -o StrictHostKeyChecking=no -i /root/.ssh/id_rsa.pub root@s3'
-ssh s1 -C 'sshpass -p "password" ssh-copy-id -o StrictHostKeyChecking=no -i /grafana/.ssh/id_rsa.pub grafana@g1'
 
 # i1에서 i1 접근 허용[kafka 설치용]
 cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
