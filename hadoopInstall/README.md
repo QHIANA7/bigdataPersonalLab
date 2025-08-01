@@ -41,35 +41,45 @@
 └──────────────────────────────────────────────────┘
 ``` 
 
-# Container Provisioning
+## Container Provisioning
 * docker-compose 로 i1,s1,s2,s3,p1,g1 컨테이너를 생성합니다. 
 ```powershell
 # Windows OS에서 수행
 git clone https://github.com/QHIANA7/bigdataPersonalLab.git
-cd ~\bigdataPersonalLab
+cd ~\bigdataPersonalLab\hadoopInstall
+. .\do.ps1
 ```
 
-# Hadoop ClusterInstall
+## Hadoop Cluster Install
 * Hadoop cluster install on oraclelinux9 docker
 * 주의1 : 하둡파일(https://downloads.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz)이 /df/i1에 있어야 작동함.
-
-
-## Hadoop Install by Ansible
-```
+```bash
 # docker exec -it i1  bash
 ansible-playbook --flush-cache -i /df/ansible-hadoop/hosts /df/ansible-hadoop/hadoop_install.yml
 ```
 
-# Spark ClusterInstall
+## Spark Cluster Install
 * Spark cluster install on oraclelinux9 docker
-* 주의1 : 하둡파일(https://dlcdn.apache.org/spark/spark-3.4.4/spark-3.4.4-bin-hadoop3.tgz)이 /df/i1에 있어야 작동함.
-
-## Spark Install by Ansible
-```
+* 주의1 : 스파크파일(https://dlcdn.apache.org/spark/spark-3.5.6/spark-3.5.6-bin-hadoop3.tgz)이 /df/i1에 있어야 작동함.
+```bash
 # docker exec -it i1  bash
 ansible-playbook --flush-cache -i /df/ansible-spark/hosts /df/ansible-spark/spark_install.yml -e ansible_python_interpreter=/usr/bin/python3.12
 ```
 
+## Kafka Cluster Install
+* Kafka cluster install on oraclelinux9 docker
+* 주의1 : 카프카파일(https://dlcdn.apache.org/kafka/3.9.0/kafka_2.12-3.9.0.tgz)이 /df/i1에 있어야 작동함.
+```bash
+# docker exec -it i1  bash
+ansible-playbook -i /df/ansible-kafka/hosts /df/ansible-kafka/kafka_install.yml -e ansible_python_interpreter=/usr/bin/python3.12
+```
+
+## Node Exporter Cluster Install
+* Node Exporter cluster install on oraclelinux9 docker
+```bash
+# docker exec -it i1  bash
+ansible-playbook -i /df/ansible-node-exporter/hosts /df/ansible-node-exporter/node_exporter_install.yml
+```
 
 # Hadoop Check
 
