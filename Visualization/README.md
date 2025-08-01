@@ -29,6 +29,10 @@
 | TimeSeries | 배치당 처리 레코드 수 | 추후 지정             | 10초          |
 | TimeSeries | 배치당 처리 소요 시간 | 추후 지정             | 10초          |
 
+* **대시보드 미리보기**
+<img width="2853" height="1580" alt="image" src="https://github.com/user-attachments/assets/d030ca1f-0098-4018-a157-1ebc392a7f2d" />
+
+
 ### [3] 노드 모니터링 대시보드
 * **클러스터 성능 통계** : 클러스터당 CPU, 메모리, 스토리지, 네트워크 성능 표시
 * **대시보드 설정**: [`1860_custom.json`](../hadoopInstall/df/g1/provisioning//dashboards/1860_custom.json)
