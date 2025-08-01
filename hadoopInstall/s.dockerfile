@@ -1,4 +1,4 @@
-FROM oraclelinux:9
+FROM i1s3-local:oraclelinux9
 
 # 추가 설치 스크립트 복사 및 실행
 COPY install-s.sh /root/install-s.sh
