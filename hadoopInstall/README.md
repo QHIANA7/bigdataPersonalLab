@@ -83,39 +83,56 @@ ansible-playbook -i /df/ansible-node-exporter/hosts /df/ansible-node-exporter/no
 
 # Start/Stop Service
 * i1에서 실행
-### Start all node
+## Start all node
 ```bash
 # Alias : startAll
 # HDFS 데몬 시작
-ansible namenodes -i /df/ansible-hadoop/hosts -m shell -a "nohup hdfs --daemon start namenode &" -u root
-ansible datanodes -i /df/ansible-hadoop/hosts -m shell -a "nohup hdfs --daemon start datanode &" -u root
-
+ansible namenodes -i /df/ansible-hadoop/hosts -m shell -a "nohup hdfs --daemon start namenode &" -u root && \
+ansible datanodes -i /df/ansible-hadoop/hosts -m shell -a "nohup hdfs --daemon start datanode &" -u root && \
 # YARN 데몬 시작
-ansible namenodes -i /df/ansible-hadoop/hosts -m shell -a "nohup yarn --daemon start resourcemanager &" -u root
-ansible datanodes -i /df/ansible-hadoop/hosts -m shell -a "nohup yarn --daemon start nodemanager &" -u root
+ansible namenodes -i /df/ansible-hadoop/hosts -m shell -a "nohup yarn --daemon start resourcemanager &" -u root && \
+ansible datanodes -i /df/ansible-hadoop/hosts -m shell -a "nohup yarn --daemon start nodemanager &" -u root && \
 
 # MapReduce HistoryServer 시작 (선택 사항)
-ansible namenodes -i /df/ansible-hadoop/hosts -m shell -a "nohup mapred --daemon start historyserver &" -u root
+ansible namenodes -i /df/ansible-hadoop/hosts -m shell -a "nohup mapred --daemon start historyserver &" -u root && \
+
+# Safe Mode off
+ansible namenodes -i /df/ansible-hadoop/hosts -m shell -a "hdfs dfsadmin -safemode leave &" -u root --become
+
+# Kafka Zookeeper 시작
+ssh s1 tmux new-session -d -s zookeeper "zookeeper-server-start.sh /opt/kafka/config/zookeeper.properties"
+sleep 10
+
+# Kafka 시작
+ssh s1 tmux new-session -d -s kafka "kafka-server-start.sh /opt/kafka/config/server.properties"
+ssh s2 tmux new-session -d -s kafka "kafka-server-start.sh /opt/kafka/config/server.properties"
+ssh s3 tmux new-session -d -s kafka "kafka-server-start.sh /opt/kafka/config/server.properties"
 ```
 
 ### Stop all node
 ```bash
 # Alias : stopAll
 # HDFS 데몬 종료
-ansible namenodes -i /df/ansible-hadoop/hosts -m shell -a "hdfs --daemon stop namenode" -u root
-ansible datanodes -i /df/ansible-hadoop/hosts -m shell -a "hdfs --daemon stop datanode" -u root
+ansible namenodes -i /df/ansible-hadoop/hosts -m shell -a "hdfs --daemon stop namenode" -u root && \
+ansible datanodes -i /df/ansible-hadoop/hosts -m shell -a "hdfs --daemon stop datanode" -u root && \
 
 # YARN 데몬 종료
-ansible namenodes -i /df/ansible-hadoop/hosts -m shell -a "yarn --daemon stop resourcemanager" -u root
-ansible datanodes -i /df/ansible-hadoop/hosts -m shell -a "yarn --daemon stop nodemanager" -u root
+ansible namenodes -i /df/ansible-hadoop/hosts -m shell -a "yarn --daemon stop resourcemanager" -u root && \
+ansible datanodes -i /df/ansible-hadoop/hosts -m shell -a "yarn --daemon stop nodemanager" -u root && \
 
 # MapReduce HistoryServer 종료 (선택 사항)
 ansible namenodes -i /df/ansible-hadoop/hosts -m shell -a "mapred --daemon stop historyserver" -u root
+
+# Kafka Zookeeper 종료
+ssh s1 tmux kill-session -t zookeeper
+
+sleep 10
+
+# Kafka 종료
+ssh s1 tmux kill-session -t kafka
+ssh s2 tmux kill-session -t kafka
+ssh s3 tmux kill-session -t kafka
 ```
-
-
-
-
 
 # Spark Check
 ## Service Start and Stop
