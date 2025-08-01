@@ -5,7 +5,7 @@
 * **센서 실시간 차트**: 온도/습도/압력 시계열 그래프  
 * **모터 성능 모니터링**: 3개 모터 RPM 실시간 추적
 * **장애건수 통계**: 1시간 단위 장애 발생 건수 표시
-* **대시보드 설정**: [`fms-dashboard.json`](../hadoopInstall/df/g1/provisioning//dashboards/fms_dashboard.json)
+* **대시보드 설정**: [`fms-dashboard.json`](../hadoopInstall/df/g1/provisioning/dashboards/fms_dashboard.json)
 
 * **핵심 시각화 패널**
 
@@ -20,7 +20,7 @@
 
 ### [2] 구조적 스트리밍 성능 모니터링 대시보드
 * **스트리밍 성능 통계** : 배치당 처리 레코드 수, 소요시간 표시
-* **대시보드 설정**: [`fms_performance.json`](../hadoopInstall/df/g1/provisioning//dashboards/fms_performance.json)
+* **대시보드 설정**: [`fms_performance.json`](../hadoopInstall/df/g1/provisioning/dashboards/fms_performance.json)
 
 * **핵심 시각화 패널**
 
@@ -35,7 +35,7 @@
 
 ### [3] 노드 모니터링 대시보드
 * **클러스터 성능 통계** : 클러스터당 CPU, 메모리, 스토리지, 네트워크 성능 표시
-* **대시보드 설정**: [`1860_custom.json`](../hadoopInstall/df/g1/provisioning//dashboards/1860_custom.json)
+* **대시보드 설정**: [`1860_custom.json`](../hadoopInstall/df/g1/provisioning/dashboards/1860_custom.json)
 * **대시보드 미리보기**
 <img width="2850" height="1635" alt="image" src="https://github.com/user-attachments/assets/48cbe40c-d2ce-4cb4-a664-5751337b6849" />
 
@@ -65,6 +65,8 @@
 * **실시간 업데이트**: 10초 간격 자동 새로고침
 * **알림 통합**: Grafana + Prometheus + 외부 시스템
 * **프로비저닝 기술**: 컨테이너 생성 시 데이터소스(프로메테우스)와 설정 대시보드 자동 구성
+* **프로비저닝 예시** : 프로비저닝된 경고 규칙 [`alerting.yaml`](../hadoopInstall/df/g1/provisioning/alerting/alerting.yaml)
+<img width="2424" height="642" alt="image" src="https://github.com/user-attachments/assets/95f26024-027f-45e7-8b05-2267851db798" />
 
 ## 주요 산출물
 * Grafana 실시간 모니터링 대시보드
