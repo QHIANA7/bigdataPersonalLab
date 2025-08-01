@@ -8,6 +8,7 @@
 * **대시보드 설정**: [`fms-dashboard.json`](../hadoopInstall/df/g1/provisioning//dashboards/fms_dashboard.json)
 
 * **핵심 시각화 패널**
+
 | 패널 유형  | 메트릭      | 임계값                | 업데이트 주기 |
 | ---------- | ----------- | ----------------------| ------------- |
 | Stat       | 장비 장애건수| 시간 당 100건 이하 정상 | 10초          |
@@ -18,6 +19,7 @@
 * **대시보드 설정**: [`fms_performance.json`](../hadoopInstall/df/g1/provisioning//dashboards/fms_performance.json)
 
 * **핵심 시각화 패널**
+
 | 패널 유형  | 메트릭               | 임계값                 | 업데이트 주기 |
 | ---------- | ------------------- | ----------------------| ------------- |
 | TimeSeries | 배치당 처리 레코드 수 | 추후 지정             | 10초          |
