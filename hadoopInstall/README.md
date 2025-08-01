@@ -1,22 +1,53 @@
-# Container Provisioning
-* docker-compose 로 i1,s1,s2,s3 컨테이너를 생성합니다. 
+# FMS 시스템을 위한 환경 구성
+## Docker 기반 클러스터 환경 설계
+### 1. 전체 아키텍처
 ```
-git clone git@github.com:Finfra/hadoopInstall.git
-cd hadoopInstall
-. do.sh
-```
-
-# 주의
-## 내부망에서 설치시 인증서 설치
-1. i1s3.dockerfile과 같은 위치에 lotte.net.crt 파일 생성
-2. i1s3.dockerfile에 아래 내용을 파일 처음에 추가
+┌──────────────────────────────────────────────────┐
+│              Docker Network (hnet)               │
+├──────────────────────────────────────────────────┤
+│                                                  │
+│ ┌────────────┐   ┌────────────┐  ┌────────────┐  │
+│ │i1 Container│   │     p1     │  │     g1     │  │
+│ │ (Ansible)  │   │   (TSDB)   │  │ (visualize)│  │
+│ │(Management)│   │            │  │ (alerting) │  │
+│ │ ┌────────┐ │   │            │>>│            │  │
+│ │ │  Kafka │ │   │┌──────────┐│  │┌──────────┐│  │
+│ │ │Producer│ │   ││Prometheus││  ││  Grafana ││  │
+│ │ │ :9092  │ │   ││   :9090  ││  ││   :3000  ││  │
+│ │ └────────┘ │   │└──────────┘│  │└──────────┘│  │
+│ └────────────┘   └────────────┘  └────────────┘  │
+│                        ↑                         │
+│                     Metrics                      │
+│                        ↑                         │
+│ ┌──────────────────────────────────────────────┐ │
+│ │             Hadoop/Spark Cluster             │ │
+│ │                                              │ │
+│ │  ┌──────────┐   ┌──────────┐   ┌──────────┐  │ │
+│ │  │    s1    │   │    s2    │   │    s3    │  │ │
+│ │  │ (Master) │   │ (Worker) │   │ (Worker) │  │ │
+│ │  │  Kafka   │   │          │   │          │  │ │
+│ │  │ Consumer │   │          │   │          │  │ │
+│ │  │ NameNode │   │DataNode  │   │DataNode  │  │ │
+│ │  │  :9870   │   │ :9864    │   │ :9864    │  │ │
+│ │  │          │   │          │   │          │  │ │
+│ │  │ ResrcMgr │   │NodeMgr   │   │NodeMgr   │  │ │
+│ │  │  :8088   │   │ :8042    │   │ :8042    │  │ │
+│ │  │          │   │          │   │          │  │ │
+│ │  │ SprkMstr │   │SprkWrkr  │   │SprkWrkr  │  │ │
+│ │  │  :8080   │   │ :8081    │   │ :8081    │  │ │
+│ │  └──────────┘   └──────────┘   └──────────┘  │ │
+│ └──────────────────────────────────────────────┘ │
+│                                                  │
+└──────────────────────────────────────────────────┘
 ``` 
-# 사설 인증서 복사 및 갱신
-COPY lotte.net.crt /etc/pki/ca-trust/source/anchors/lotte.net.crt
-RUN update-ca-trust enable
-RUN update-ca-trust extract
-```
 
+# Container Provisioning
+* docker-compose 로 i1,s1,s2,s3,p1,g1 컨테이너를 생성합니다. 
+```powershell
+# Windows OS에서 수행
+git clone https://github.com/QHIANA7/bigdataPersonalLab.git
+cd ~\bigdataPersonalLab
+```
 
 # Hadoop ClusterInstall
 * Hadoop cluster install on oraclelinux9 docker
