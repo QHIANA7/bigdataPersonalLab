@@ -7,8 +7,8 @@ contactPoints:
         - uid: FmsWebExContactPoint
           type: webex
           settings:
-            bot_token: {Input your bot token}
-            room_id: {Input your room id}
+            bot_token: Input_your_bot_token
+            room_id: Input_your_room_id
             message: |
                 {{ template "webex.default.message" . }}
           disableResolveMessage: false
